@@ -72,10 +72,11 @@ const createCurso = async (req,res,next ) =>{
 
 
 const createAsistencia = async (req,res,next ) =>{
+
     const {student_code, codigo_c, fecha_hora, presente} = req.body
 
     try {
-        const result = await pool.query("INSERT INTO cursos(student_code, codigo_c, fecha_hora, presente) VALUES($1, $2, $3, $4) RETURNING *",
+        const result = await pool.query('INSERT INTO asistencia_clase (student_code, codigo_c, fecha_hora, presente) VALUES($1, $2, $3, $4) RETURNING *',
         [student_code, codigo_c, fecha_hora, presente]);
       
           //console.log(result)
@@ -195,25 +196,6 @@ const editMatricula = async (req,res,next) => {
     }
 
 }
-const marcarAsistencia = async (req,res,next ) =>{
-    
-
-    try {
-    const {id} = req.params
-    const {student_code, codigo_c, fecha_hora, presente} = req.body
-
-    const result = await pool.query('INSERT INTO asistencia_clase(student_code, codigo_c, fecha_hora, presente) VALUES($1, $2, $3, $4) RETURNING *',
-     [student_code, codigo_c, fecha_hora, presente])
-
-    if (result.rows.length == 0) {
-        return res.status(404).json({message: 'Estudiante no encontrado'})
-    }
-    
-    res.json(result.rows[0])
-    } catch (error) {
-        next(error)
-    }
-}
 
 
 module.exports = {
@@ -226,7 +208,6 @@ module.exports = {
     deleteStudent,
     editPersonal,
     createAsistencia,
-    marcarAsistencia,
     getAllAsistencia,
     editStudent,
     editMatricula

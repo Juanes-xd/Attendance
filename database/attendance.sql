@@ -11,7 +11,7 @@ CREATE TABLE estudiantes(
     student_code serial PRIMARY KEY,
     student_name VARCHAR(100) NOT NULL,
     student_dir VARCHAR(200) NOT NULL
-      
+    id_sede INT NOT NULL
 );
 
 CREATE TABLE profesores(
@@ -48,7 +48,8 @@ CREATE TABLE personal(
     contraseña VARCHAR(100),
     eps VARCHAR(100),
     arl VARCHAR(100),
-    direccion VARCHAR(100)
+    direccion VARCHAR(100),
+    id_sede NOT NULL
 );
 
 
@@ -57,6 +58,7 @@ CREATE TABLE asistencia_sede (
     student_code INT NOT NULL,
     id_sede INT NOT NULL,
     fecha_hora TIMESTAMP NOT NULL,
+    presente BOOLEAN NOT NULL,
     FOREIGN KEY (id_personal) REFERENCES personal(id_personal),
     FOREIGN KEY (id_sede) REFERENCES sede(id_sede)
 );
@@ -65,28 +67,22 @@ CREATE TABLE cursos (
     codigo_c serial PRIMARY KEY,
     name_c VARCHAR(100) NOT NULL,
     creditos INT NOT NULL,
+    id_profesor INT NOT NULL
 );
 
 CREATE TABLE asistencia_clase (
     student_code INT NOT NULL,
     codigo_c INT NOT NULL,
     fecha_hora TIMESTAMP NOT NULL,
-    presente BOOLEAN,
+    presente BOOLEAN NOT NULL,
     FOREIGN KEY (student_code) REFERENCES estudiantes(student_code),
     FOREIGN KEY (codigo_c) REFERENCES cursos(codigo_c)
 );
 
 /*
-Agegando columna(atributo a la tabla).
+*****************Modificaciones que se hicieron despues de creadas las tablas****************
 */
 
-ALTER TABLE asistencia_clase ADD COLUMN presente BOOLEAN;
-ALTER TABLE asistencia_sede ADD COLUMN presente BOOLEAN;
-ALTER TABLE cursos ADD COLUMN id_profesor INT NOT NULL;
-ALTER TABLE personal ADD COLUMN id_sede INT NOT NULL;
-ALTER TABLE personal ADD COLUMN misional BOOLEAN;
-ALTER TABLE personal ADD COLUMN no_misional BOOLEAN;
-ALTER TABLE estudiantes ADD COLUMN id_sede INT NOT NULL;
 
 /*Hacemos que una columna sea llave foranea*/
 ALTER TABLE cursos ADD FOREIGN KEY(id_profesor) REFERENCES profesores(id_profesor);
@@ -148,7 +144,7 @@ INSERT INTO asistencia_sede (id_personal, id_sede, fecha_hora, presente) VALUES
 (333,1000,'2020-06-22 19:10:25',true);
 
 INSERT INTO asistencia_clase (student_code, codigo_c, fecha_hora, presente) VALUES
-(1007560453,1000,'2020-06-22 19:20:30',true);
+(1007560453,400,'2020-06-22 19:20:30',true);
 /*
 Hacemos la consulta de toda la tabla.
 */

@@ -12,7 +12,7 @@ const {
     deletePersonal,
     deleteStudent,
     getAllAsistencia,
-    marcarAsistencia,
+   
     createAsistencia,
     editMatricula
     } = require('../controllers/admin.controller');
@@ -22,6 +22,7 @@ const router = Router();
 
 
 router.get('/students', getAllstudents)
+
 router.get('/students', getAllpersonal)
 //Buscando un solo estudiante.
 router.get('/students/:id',getStudent)
@@ -37,8 +38,6 @@ router.delete('/personal/:id', deletePersonal)
 router.get('/asistencia', getAllAsistencia)
 
 router.post('/asistencia', createAsistencia)
-
-router.post('/asistencia/:id', marcarAsistencia)
 
 router.put('/personal/:id', editPersonal)
 
