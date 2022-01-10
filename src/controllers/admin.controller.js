@@ -14,6 +14,17 @@ const pool = require('../db');
     
 }
 
+const getAllpersonal = async (req,res,next ) =>{
+   
+    try {
+     const Allpersonal = await pool.query('SELECT * FROM personal')
+     res.json(Allpersonal.rows)
+ 
+    } catch (error) {
+        next(error)
+    }
+     
+ }
 
 const getStudent = async (req,res,next ) =>{
     try {
@@ -207,6 +218,7 @@ const marcarAsistencia = async (req,res,next ) =>{
 
 module.exports = {
     getAllstudents,
+    getAllpersonal,
     getStudent,
     createCurso,
     deleteCurso,

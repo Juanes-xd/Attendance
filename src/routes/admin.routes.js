@@ -3,6 +3,7 @@ const {Router} = require('express');
 
 const {
     getAllstudents,
+    getAllpersonal,
     getStudent, 
     createCurso, 
     editPersonal,
@@ -21,7 +22,7 @@ const router = Router();
 
 
 router.get('/students', getAllstudents)
-
+router.get('/students', getAllpersonal)
 //Buscando un solo estudiante.
 router.get('/students/:id',getStudent)
 
