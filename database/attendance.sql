@@ -49,7 +49,10 @@ CREATE TABLE personal(
     eps VARCHAR(100),
     arl VARCHAR(100),
     direccion VARCHAR(100),
-    id_sede NOT NULL
+    misional BOOLEAN,
+    no_misional BOOLEAN,
+    id_sede INT NOT NULL,
+    salario INT
 );
 
 
@@ -79,6 +82,7 @@ CREATE TABLE asistencia_clase (
     FOREIGN KEY (codigo_c) REFERENCES cursos(codigo_c)
 );
 
+
 /*
 *****************Modificaciones que se hicieron despues de creadas las tablas****************
 */
@@ -92,6 +96,8 @@ ALTER TABLE estudiantes ADD FOREIGN KEY(id_sede) REFERENCES sede(id_sede);
 /*Hacemos que una columna existente sea llave primaria*/
 ALTER TABLE asistencia_clase ADD PRIMARY KEY (student_code, codigo_c);
 ALTER TABLE asistencia_sede ADD PRIMARY KEY (id_personal, id_sede);
+ALTER TABLE personal ADD COLUMN salario INT;
+
 /*
 Eliminar una tabla. 
 */
@@ -104,7 +110,7 @@ TRUNCATE TABLE estudiantes;
 Eliminar una columna de una tabla.
 */
 ALTER TABLE asistencia_sede DROP COLUMN student_code;
-ALTER TABLE cursos DROP COLUMN id_profesor;
+
 
 /*
 Insertamos valores en las tabla.
@@ -145,6 +151,12 @@ INSERT INTO asistencia_sede (id_personal, id_sede, fecha_hora, presente) VALUES
 
 INSERT INTO asistencia_clase (student_code, codigo_c, fecha_hora, presente) VALUES
 (1007560453,400,'2020-06-22 19:20:30',true);
+
+
+
+/*Actualizamos la datos en tuplas especificas*/
+UPDATE personal SET salario =1500000 WHERE id_personal = 333;
+
 /*
 Hacemos la consulta de toda la tabla.
 */

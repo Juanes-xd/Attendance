@@ -124,10 +124,10 @@ const deleteStudent = async (req,res,next ) =>{
 const deletePersonal = async (req,res,next ) =>{
     try {
         const {id} = req.params
-     const result =  await pool.query('DELETE FROM estudiantes WHERE student_code = $1 RETURNING *', [id])
+     const result =  await pool.query('DELETE FROM personal WHERE id_personal = $1 RETURNING *', [id])
 
      if (result.rows.length == 0) {
-       return res.status(404).json({message: 'Estudiante no encontrado'})
+       return res.status(404).json({message: 'Personal no encontrado'})
      }
 
      return res.sendStatus(204)
@@ -141,10 +141,10 @@ const editPersonal = async (req,res,next ) =>{
 
     try {
         const {id} = req.params
-    const {name_complete, eps, arl, direccion} = req.body
+    const {name_complete, eps, arl, direccion,salario,misional,no_misional} = req.body
 
-    const result = await pool.query('UPDATE estudiantes SET name_complete = $1, eps = $2, arl = $3, direccion = $4 WHERE id_personal = $5 RETURNING *',
-     [name_complete, eps, arl, direccion, id])
+    const result = await pool.query('UPDATE personal SET name_complete = $1, eps = $2, arl = $3, direccion = $4, misional = $5, no_misional = $6, salario =$7 WHERE id_personal = $8 RETURNING *',
+     [name_complete, eps, arl, direccion,misional, no_misional, salario, id])
 
     if (result.rows.length == 0) {
         return res.status(404).json({message: 'Integrante de personal no encontrado'})
